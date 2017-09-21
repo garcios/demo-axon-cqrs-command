@@ -14,6 +14,7 @@ public class ProductAggregateTest {
     private FixtureConfiguration fixture;
     private String id;
     private String name;
+    private double price;
 
     @Before
     public void setUp() {
@@ -26,30 +27,30 @@ public class ProductAggregateTest {
     @Test
     public void testCommandAddProductToCatalogPasses() {
         fixture.given()
-                .when(new AddProductToCatalogCommand(id, name))
+                .when(new AddProductToCatalogCommand(id, name, price))
                 .expectSuccessfulHandlerExecution()
-                .expectEvents(new ProductAddedEvent(id, name));
+                .expectEvents(new ProductAddedEvent(id, name, price));
     }
 
     @Test
     public void testCommandAddProductToCatalogFailsWhenIdNull() {
         fixture.given()
-                .when(new AddProductToCatalogCommand(null, name))
+                .when(new AddProductToCatalogCommand(null, name, price))
                 .expectException(IllegalArgumentException.class);
 
         fixture.given()
-                .when(new AddProductToCatalogCommand("", name))
+                .when(new AddProductToCatalogCommand("", name, price))
                 .expectException(IllegalArgumentException.class);
     }
 
     @Test
     public void testCommandAddProductToCatalogFailsWhenNameNull() {
         fixture.given()
-                .when(new AddProductToCatalogCommand(id, null))
+                .when(new AddProductToCatalogCommand(id, null, price))
                 .expectException(IllegalArgumentException.class);
 
         fixture.given()
-                .when(new AddProductToCatalogCommand(id, ""))
+                .when(new AddProductToCatalogCommand(id, "", price))
                 .expectException(IllegalArgumentException.class);
     }
 

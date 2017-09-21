@@ -24,6 +24,7 @@ public class CatalogServiceTest {
 
     private String id;
     private String name;
+    private double price;
     private AddProductToCatalogCommand command;
 
     @MockBean
@@ -36,7 +37,7 @@ public class CatalogServiceTest {
     public void init() {
         id = UUID.randomUUID().toString();
         name = "test-" + id;
-        command = new AddProductToCatalogCommand(id, name);
+        command = new AddProductToCatalogCommand(id, name, price);
         service = new CatalogService(commandGateway);
     }
 

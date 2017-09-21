@@ -20,6 +20,7 @@ public class ProductAggregate {
     @AggregateIdentifier
     private String id;
     private String name;
+    private double price;
 
     public ProductAggregate() {
     }
@@ -29,7 +30,7 @@ public class ProductAggregate {
         LOG.debug("Handling {} command: {}, {}", cmd.getClass().getSimpleName(), cmd.getId(), cmd.getName());
         Assert.hasLength(cmd.getId(), "ID should NOT be empty or null.");
         Assert.hasLength(cmd.getName(), "Name should NOT be empty or null.");
-        apply(new ProductAddedEvent(cmd.getId(), cmd.getName()));
+        apply(new ProductAddedEvent(cmd.getId(), cmd.getName(), cmd.getPrice()));
         LOG.trace("Done handling {} command: {}, {}", cmd.getClass().getSimpleName(), cmd.getId(), cmd.getName());
     }
 
@@ -38,6 +39,7 @@ public class ProductAggregate {
         LOG.debug("Handling {} event: {}, {}", evnt.getClass().getSimpleName(), evnt.getId(), evnt.getName());
         this.id = evnt.getId();
         this.name = evnt.getName();
+        this.price = evnt.getPrice();
         LOG.trace("Done handling {} event: {}, {}", evnt.getClass().getSimpleName(), evnt.getId(), evnt.getName());
     }
 
@@ -48,4 +50,11 @@ public class ProductAggregate {
     public String getName() {
         return name;
     }
+
+	public double getPrice() {
+		return price;
+	}
+
+   
+    
 }

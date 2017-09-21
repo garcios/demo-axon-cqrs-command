@@ -26,7 +26,7 @@ public class CatalogApiController {
     @PostMapping("/add")
     public CompletableFuture<String> addProductToCatalog(@RequestBody Map<String, String> request) {
 
-        AddProductToCatalogCommand command = new AddProductToCatalogCommand(request.get("id"), request.get("name"));
+        AddProductToCatalogCommand command = new AddProductToCatalogCommand(request.get("id"), request.get("name"), Double.parseDouble(request.get("price")));
         LOG.info("Executing command: {}", command);
         return catalogService.addProductToCatalog(command);
     }
