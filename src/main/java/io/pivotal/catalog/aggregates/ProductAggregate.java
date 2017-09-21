@@ -27,20 +27,20 @@ public class ProductAggregate {
 
     @CommandHandler
     public ProductAggregate(AddProductToCatalogCommand cmd) {
-        LOG.debug("Handling {} command: {}, {}", cmd.getClass().getSimpleName(), cmd.getId(), cmd.getName());
+        LOG.debug("Handling {} command: {}, {}, {}", cmd.getClass().getSimpleName(), cmd.getId(), cmd.getName(), cmd.getPrice());
         Assert.hasLength(cmd.getId(), "ID should NOT be empty or null.");
         Assert.hasLength(cmd.getName(), "Name should NOT be empty or null.");
         apply(new ProductAddedEvent(cmd.getId(), cmd.getName(), cmd.getPrice()));
-        LOG.trace("Done handling {} command: {}, {}", cmd.getClass().getSimpleName(), cmd.getId(), cmd.getName());
+        LOG.trace("Done handling {} command: {}, {}, {}", cmd.getClass().getSimpleName(), cmd.getId(), cmd.getName(), cmd.getPrice());
     }
 
     @EventSourcingHandler
     public void on(ProductAddedEvent evnt) {
-        LOG.debug("Handling {} event: {}, {}", evnt.getClass().getSimpleName(), evnt.getId(), evnt.getName());
+        LOG.debug("Handling {} event: {}, {}, {}", evnt.getClass().getSimpleName(), evnt.getId(), evnt.getName(), evnt.getPrice());
         this.id = evnt.getId();
         this.name = evnt.getName();
         this.price = evnt.getPrice();
-        LOG.trace("Done handling {} event: {}, {}", evnt.getClass().getSimpleName(), evnt.getId(), evnt.getName());
+        LOG.trace("Done handling {} event: {}, {}, {}", evnt.getClass().getSimpleName(), evnt.getId(), evnt.getName(), evnt.getPrice());
     }
 
     public String getId() {
