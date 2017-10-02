@@ -1,12 +1,12 @@
-package io.pivotal.catalog.commands;
+package com.demo.catalog.commands;
 
-public class AddProductToCatalogCommand {
+public class AddProductCommand {
 
     private final String id;
     private final String name;
     private final double price;
 
-    public AddProductToCatalogCommand(String id, String name, double price) {
+    public AddProductCommand(String id, String name, double price) {
         this.id = id;
         this.name = name;
         this.price=price;

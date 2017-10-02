@@ -1,13 +1,15 @@
-package io.pivotal.catalog.controllers;
+package com.demo.catalog.controllers;
 
 
-import io.pivotal.catalog.commands.AddProductToCatalogCommand;
-import io.pivotal.catalog.services.CatalogService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.demo.catalog.commands.AddProductCommand;
+import com.demo.catalog.controllers.CatalogApiController;
+import com.demo.catalog.services.CatalogService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,9 +52,9 @@ public class CatalogApiControllerTest {
         assertNotNull(request.containsKey("name"));
         // Arrange
 
-        when(commandGateway.addProductToCatalog(any(AddProductToCatalogCommand.class)))
+        when(commandGateway.addProduct(any(AddProductCommand.class)))
                 .thenAnswer(i -> {
-                    AddProductToCatalogCommand command = i.getArgumentAt(0, AddProductToCatalogCommand.class);
+                    AddProductCommand command = i.getArgumentAt(0, AddProductCommand.class);
                     CompletableFuture<String> response =  new CompletableFuture<String>();
                     response.complete(command.getId());
                     return response;
@@ -62,7 +64,7 @@ public class CatalogApiControllerTest {
         CompletableFuture<String> answer = controller.addProductToCatalog(request);
 
         // Assert
-        verify(commandGateway, times(1)).addProductToCatalog(any(AddProductToCatalogCommand.class));
+        verify(commandGateway, times(1)).addProduct(any(AddProductCommand.class));
         verifyNoMoreInteractions(commandGateway);
         assertEquals(id, answer.get().toString());
     }

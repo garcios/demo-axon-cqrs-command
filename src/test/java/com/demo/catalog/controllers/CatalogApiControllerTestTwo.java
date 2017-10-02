@@ -1,9 +1,11 @@
-package io.pivotal.catalog.controllers;
+package com.demo.catalog.controllers;
 
 
+import com.demo.catalog.commands.AddProductCommand;
+import com.demo.catalog.controllers.CatalogApiController;
+import com.demo.catalog.services.CatalogService;
 import com.google.gson.Gson;
-import io.pivotal.catalog.commands.AddProductToCatalogCommand;
-import io.pivotal.catalog.services.CatalogService;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,7 +70,7 @@ public class CatalogApiControllerTestTwo {
     public void shouldAddProductUsingCommand() throws Exception {
 
         // Arrange
-        when(service.addProductToCatalog(any(AddProductToCatalogCommand.class)))
+        when(service.addProduct(any(AddProductCommand.class)))
                 .thenAnswer(i -> {
                     CompletableFuture<String> response = new CompletableFuture<>();
                     response.complete(id);
@@ -86,7 +88,7 @@ public class CatalogApiControllerTestTwo {
                 .andExpect(content().string(id));
 
         // Assert
-        verify(service, times(1)).addProductToCatalog(any(AddProductToCatalogCommand.class));
+        verify(service, times(1)).addProduct(any(AddProductCommand.class));
         verifyNoMoreInteractions(service);
 
     }

@@ -1,6 +1,5 @@
-package io.pivotal.catalog.services;
+package com.demo.catalog.services;
 
-import io.pivotal.catalog.commands.AddProductToCatalogCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.demo.catalog.commands.AddProductCommand;
+import com.demo.catalog.services.CatalogService;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -25,7 +27,7 @@ public class CatalogServiceTest {
     private String id;
     private String name;
     private double price;
-    private AddProductToCatalogCommand command;
+    private AddProductCommand command;
 
     @MockBean
     private CommandGateway commandGateway;
@@ -37,7 +39,7 @@ public class CatalogServiceTest {
     public void init() {
         id = UUID.randomUUID().toString();
         name = "test-" + id;
-        command = new AddProductToCatalogCommand(id, name, price);
+        command = new AddProductCommand(id, name, price);
         service = new CatalogService(commandGateway);
     }
 
@@ -46,7 +48,7 @@ public class CatalogServiceTest {
         //Arrange
         when(commandGateway.send(any()))
                 .thenAnswer(i -> {
-                    AddProductToCatalogCommand command = i.getArgumentAt(0, AddProductToCatalogCommand.class);
+                    AddProductCommand command = i.getArgumentAt(0, AddProductCommand.class);
                     assertEquals(id, command.getId());
                     CompletableFuture<String> response = new CompletableFuture<String>();
                     response.complete(command.getId());
@@ -54,7 +56,7 @@ public class CatalogServiceTest {
                 });
 
         //Act
-        CompletableFuture<String> response = service.addProductToCatalog(command);
+        CompletableFuture<String> response = service.addProduct(command);
 
         //Assert
         verify(commandGateway, times(1)).send(any());

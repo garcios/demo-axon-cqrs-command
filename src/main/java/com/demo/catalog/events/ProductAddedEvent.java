@@ -1,4 +1,4 @@
-package io.pivotal.catalog.events;
+package com.demo.catalog.events;
 
 
 public class ProductAddedEvent {

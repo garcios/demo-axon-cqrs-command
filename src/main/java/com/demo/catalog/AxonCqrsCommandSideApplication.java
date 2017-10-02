@@ -1,4 +1,4 @@
-package io.pivotal.catalog;
+package com.demo.catalog;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,12 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 //@EnableDiscoveryClient
 @SpringBootApplication
-public class PcfAxonCqrsCommandSideApplication {
+public class AxonCqrsCommandSideApplication {
 
-    private static final Logger LOG = LoggerFactory.getLogger(PcfAxonCqrsCommandSideApplication.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AxonCqrsCommandSideApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(PcfAxonCqrsCommandSideApplication.class, args);
-        LOG.info("Starting the COMMAND-SIDE PCF Axon CQRS Demo using SpringBoot.");
+        SpringApplication.run(AxonCqrsCommandSideApplication.class, args);
+        LOG.info("Starting the COMMAND-SIDE Axon CQRS Demo using SpringBoot.");
     }
 }

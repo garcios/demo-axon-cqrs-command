@@ -1,4 +1,4 @@
-package io.pivotal.catalog.configuration;
+package com.demo.catalog.configuration;
 
 import java.util.Arrays;
 import java.util.Collections;
